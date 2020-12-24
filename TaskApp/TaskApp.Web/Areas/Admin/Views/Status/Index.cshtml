@@ -1,0 +1,151 @@
+﻿@model Unit.Data.DbEntity.Status
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    string z = System.Globalization.CultureInfo.CurrentCulture.Name;
+    ViewData["Title"] = "Our Types";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-subheader ">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto"> 
+            </div>
+            <div>
+                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push mr-5" m-dropdown-toggle="hover" aria-expanded="true">
+                    <ul class="m-nav m-nav--inline"> 
+                        <li class="m-nav__item">
+                            <a href="~/Admin/Status/create" title="Create New Status" class="PopUp btn btn-primary" data-toggle="modal" data-target="#m_modal_6">
+                                <span>
+                                    <span>Add New </span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="m-content">
+        <div class="m-portlet m-portlet--mobile mr-5">
+
+            <div class="m-portlet__body">
+                <!--begin: Search Form -->
+
+                <table class="table m-table m-table--head-separator-primary table-responsive" id="StatusTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th> Date</th>
+                            <th>Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        <script>
+            $(document).on("click", ".SearchBtn", function () {
+                BindDataTable();
+            });
+
+
+
+            BindDataTable();
+
+            function BindDataTable() {
+                oTable = $('#StatusTable').dataTable(
+                    {
+                        language: {
+                            aria: {
+                                sortAscending: ": فعال لترتيب العمود تصاعديا", sortDescending: ": فعال لترتيب العمود تنازليا"
+                            }
+                            , emptyTable: "No Data to Show", info: "Show _START_ To _END_ From _TOTAL_ Line", infoEmpty: "No Data to Show", infoFiltered: "(filtered1 From _MAX_ Total)", lengthMenu: "_MENU_", search: "Search", zeroRecords: "No Data to show",
+                            paginate: { sFirst: "First", sLast: "Last", sNext: "Next", sPrevious: "Previous" }
+                        },
+
+                        "iDisplayLength": 8,
+                        "sPaginationType": "full_numbers",
+                        "bFilter": false,
+                        "bDestroy": true,
+                        "bSort": false,
+                        "bStateSave": true,
+                        "bLengthChange": false,
+                        "columnDefs": [{
+                            "orderable": false
+                        }],
+                        //"bSort": false,
+                        serverSide: true,
+                        columns: [
+                            { data: 'name', name: 'name' },
+
+                            {
+                                "render": function (data, type, row) {
+                                    return formatDate(row["createdAt"]);
+                                }
+                            },
+                            {
+                                name: 'buttons', "render": function (data, type, row) {
+                                    return ""
+                                        + "<a title='Update Status ' tname='StatusTable' href='/Admin/Status/Edit/" + row["id"] + "' class='PopUp btn btn-outline-primary btn-sm m-btn m-btn--icon  m-btn--icon-only m-btn--pill'><i class='flaticon-settings'></i></a>"
+                                        + "<a  title='Delete Status ' tname='StatusTable' href='#' id='" + row["id"] +"' class='deletItem btn btn-outline-danger btn-sm m-btn m-btn--icon  m-btn--icon-only m-btn--pill'><i class='flaticon-delete-1'></i></a>"
+                                }
+                            }
+                        ],
+                        ajax: {
+                            type: "POST",
+                            contentType: "application/json",
+                            url: '/Admin/Status/IndexAjax'
+                            ,
+                            data: function (d) {
+                                d.SearchKey = ($("[name=SearchKey]").val());
+                                return JSON.stringify(d);
+                            }
+                        }
+                    });
+            }
+            $(document).on("click", ".deletItem", function () {
+                var nRow = $(this).parents('tr')[0];
+                var aData = oTable.fnGetData(nRow);
+                Swal.fire({
+                    title: 'Warning',
+                    text: "Are you Sure you want to delete " + aData.name + " Status",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonClass: "btn btn-brand m-btn m-btn--pill m-btn--air m-btn--icon",
+                    cancelButtonClass: "btn btn-danger m-btn m-btn--pill m-btn--icon",
+                    cancelButtonText: "<a class='closeSwal'>Cancel</a>",
+                    confirmButtonText: "<span><span>Delete  </span></span>",
+                }).then((result) => {
+                    if (result.value) {
+                        var id = $(this).attr('id');
+                        $(this).hide();
+                        $.ajax({
+                            url: "/Admin/Status/Delete/" + id,
+                            type: "POST",
+                            dataType: "json",
+                            success: function (Data) {
+                                if (Data.status > 0) {
+                                    ShowMessage(Data.msg);
+                                    BindDataTable();
+                                }
+
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+        
+    }
+
+
+

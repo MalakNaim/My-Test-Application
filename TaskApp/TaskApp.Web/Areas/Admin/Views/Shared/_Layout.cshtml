@@ -1,0 +1,915 @@
+﻿ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Task App</title>
+    <meta name="description" content="Blank inner page examples">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <!--begin::Web font -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="~/NewLayout/css/vendors.bundle.css">
+    <link rel="stylesheet" href="~/assets/vendors/base/vendors.bundle.rtl.css">
+    <link rel="stylesheet" href="~/NewLayout/css/style.bundle.css">
+    <link rel="stylesheet" href="~/NewLayout/css/fullcalendar.bundle.css">
+    <link rel="stylesheet" href="~/assets/css/customltr.css">
+    <link rel="stylesheet" href="~/NewLayout/css/style.css">
+    <link rel="stylesheet" href="~/NewLayout/css/datatables.bundle.css">
+
+    @RenderSection("Css", required: false)
+</head>
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+
+    <!-- begin:: Page -->
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+
+        <!-- BEGIN: Header -->
+        <header id="m_header" class="m-grid__item    m-header " m-minimize-offset="200" m-minimize-mobile-offset="200">
+            <div class="m-container m-container--fluid m-container--full-height">
+                <div class="m-stack m-stack--ver m-stack--desktop">
+
+                    <!-- BEGIN: Brand -->
+                    <div class="m-stack__item m-brand  m-brand--skin-dark ">
+                        <div class="m-stack m-stack--ver m-stack--general"> 
+                            <div class="m-stack__item m-stack__item--middle m-brand__tools">
+
+                                @*BEGIN: Left Aside Minimize Toggle *@
+                                <a href="javascript:;" id="m_aside_left_minimize_toggle"
+                                   class="m-brand__icon m-brand__toggler--left m--visible-desktop-inline-block">
+                                    <img alt="Logo Company" class="image_logo" src="~/assets/img/Logo.svg" />
+                                </a>
+
+                                @*END
+                                    BEGIN: Responsive Aside Left Menu Toggler *@
+                                <a href="javascript:;" id="m_aside_left_offcanvas_toggle"
+                                   class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+                                    <span></span>
+                                </a>
+
+                                @*END
+                                    BEGIN: Topbar Toggler *@
+                                <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;"
+                                   class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                                    <i class="flaticon-more"></i>
+                                </a>
+
+                                @*BEGIN: Topbar Toggler *@
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END: Brand -->
+                    <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+
+                        <!-- BEGIN: Horizontal Menu -->
+                        <button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark "
+                                id="m_aside_header_menu_mobile_close_btn">
+                            <i class="la la-close"></i>
+                        </button>
+                        <div id="m_header_menu "
+                             class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-dark m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark d-flex align-items-center">
+                            <div class="form-group search-container">
+                                <span class="icon-input" id="basic-addon1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                         height="20" viewBox="0 0 20 20">
+                                        <defs>
+                                            <style>
+                                                .a {
+                                                    fill: #0c2869;
+                                                }
+                                            </style>
+                                        </defs>
+                                        <path class="a"
+                                              d="M9,2a7,7,0,1,0,4.574,12.281l.426.426V16l6,6,2-2-6-6H14.707l-.426-.426A6.985,6.985,0,0,0,9,2ZM9,4A5,5,0,1,1,4,9,4.985,4.985,0,0,1,9,4Z"
+                                              transform="translate(-2 -2)" />
+                                    </svg>
+                                </span>
+                                <input type="text" name="" id="" class="form-control search-input" placeholder="Search for rental, tenants, complaints, managers, maintenance, visitors..">
+                                <div class="dropdown search-dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="arrow down"></i>
+                                    </button>
+                                    <div class="dropdown-menu search-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#"><i class="m-menu__link-icon flaticon-home pr-2"></i>Property</a>
+                                        <a class="dropdown-item" href="#"><i class="m-menu__link-icon flaticon-home pr-2"></i>Contracts</a>
+                                        <a class="dropdown-item" href="#"><i class="m-menu__link-icon flaticon-home pr-2"></i>Managers</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- END: Horizontal Menu -->
+                        <!-- BEGIN: Topbar -->
+                        <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
+                            <div class="m-stack__item m-topbar__nav-wrapper">
+                                <ul class="m-topbar__nav m-nav m-nav--inline">
+                                    <li class="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light"
+                                        m-dropdown-toggle="click" id="m_quicksearch" m-quicksearch-mode="dropdown"
+                                        m-dropdown-persistent="1">
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
+                                            <div class="m-dropdown__inner ">
+                                                <div class="m-dropdown__header">
+                                                    <form class="m-list-search__form">
+                                                        <div class="m-list-search__form-wrapper">
+                                                            <span class="m-list-search__form-input-wrapper">
+                                                                <input id="m_quicksearch_input" autocomplete="off" type="text"
+                                                                       name="q" class="m-list-search__form-input" value=""
+                                                                       placeholder="Search...">
+                                                            </span>
+                                                            <span class="m-list-search__form-icon-close"
+                                                                  id="m_quicksearch_close">
+                                                                <i class="la la-remove"></i>
+                                                            </span>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__scrollable m-scrollable" data-scrollable="true"
+                                                         data-height="300" data-mobile-height="200">
+                                                        <div class="m-dropdown__content">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="m-nav__item m-topbar__quick-actions m-dropdown m-dropdown--skin-light m-dropdown--large m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light"
+                                        m-dropdown-toggle="click">
+                                        <a href="#" class="m-nav__link m-dropdown__toggle">
+                                            <span class="m-nav__link-icon">
+                                                <span class="m-nav__link-icon-wrapper">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         width="18" height="20" viewBox="0 0 18 20">
+                                                        <defs>
+                                                            <style>
+                                                                .a {
+                                                                    fill: #0c2869;
+                                                                }
+                                                            </style>
+                                                        </defs>
+                                                        <path class="a"
+                                                              d="M15.75,4a8.079,8.079,0,0,0-5.7,1.954A7.091,7.091,0,0,0,8,11.25v1.879A2.4,2.4,0,0,0,7,15a2.478,2.478,0,0,0,1.96,2.391A10.6,10.6,0,0,0,11.2,21.914,5.833,5.833,0,0,0,15.5,24a.75.75,0,1,0,0-1.5,4.3,4.3,0,0,1-3.184-1.592,9.345,9.345,0,0,1-2.052-4.315A.75.75,0,0,0,9.53,16c-.153,0-.163,0-.03,0a.989.989,0,0,1-1-1,.974.974,0,0,1,.571-.891.75.75,0,0,0,.429-.678V11.25a5.529,5.529,0,0,1,1.578-4.207A6.566,6.566,0,0,1,15.75,5.5c3.159,0,5.236,1.448,6.248,3.563.01.021.008.028-.029.039a13.762,13.762,0,0,1-3.469.4,9.981,9.981,0,0,1-3.954-.689A3.2,3.2,0,0,1,13.53,8.22a.75.75,0,0,0-1.234.271,2.824,2.824,0,0,1-1,1.164.751.751,0,0,0,.916,1.189A4.888,4.888,0,0,0,13.236,9.75a2.541,2.541,0,0,0,.718.439A11.508,11.508,0,0,0,18.5,11a17,17,0,0,0,2.749-.215A4.659,4.659,0,0,1,21.5,12.25v5a2.238,2.238,0,0,1-2.25,2.25h-.92a1.751,1.751,0,1,0,0,1.5h.921a3.76,3.76,0,0,0,3.737-3.5H23a2,2,0,0,0,2-2v-1a2,2,0,0,0-2-2v-.25a6.243,6.243,0,0,0-.292-1.843,1.546,1.546,0,0,0,.644-1.991A8.067,8.067,0,0,0,15.75,4ZM13,14a1,1,0,1,0,1,1A1,1,0,0,0,13,14Zm5,0a1,1,0,1,0,1,1A1,1,0,0,0,18,14Z"
+                                                              transform="translate(-7 -4)" />
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </a>
+
+                                    </li>
+                                    <li class="m-nav__item m-topbar__notifications m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width"
+                                        m-dropdown-toggle="click" m-dropdown-persistent="1">
+                                        <a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
+                                            <span class="m-nav__link-icon">
+                                                <span class="m-nav__link-icon-wrapper">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         width="21" height="21" viewBox="0 0 21 21">
+                                                        <defs>
+                                                            <style>
+                                                                .a,
+                                                                .b {
+                                                                    fill: #0c2869;
+                                                                }
+
+                                                                .b {
+                                                                    stroke: #f6f7fa;
+                                                                }
+
+                                                                .c {
+                                                                    stroke: none;
+                                                                }
+
+                                                                .d {
+                                                                    fill: none;
+                                                                }
+                                                            </style>
+                                                        </defs>
+                                                        <g transform="translate(-1566 -30)">
+                                                            <path class="a"
+                                                                  d="M14.868,4.009a7.824,7.824,0,0,0-7.322,7.879v3.727L6.187,18.35l-.007.015A1.818,1.818,0,0,0,7.8,20.924h4.358a3.077,3.077,0,1,0,6.154,0h4.357A1.818,1.818,0,0,0,24.3,18.365l-.007-.015-1.359-2.734V11.693A7.706,7.706,0,0,0,14.868,4.009Zm.072,1.536a6.141,6.141,0,0,1,6.452,6.147v4.1a.769.769,0,0,0,.08.343L22.9,19.021a.238.238,0,0,1-.232.365H7.8a.238.238,0,0,1-.231-.365h0L9,16.138a.769.769,0,0,0,.08-.343V11.888A6.279,6.279,0,0,1,14.94,5.546ZM13.7,20.924h3.077a1.538,1.538,0,1,1-3.077,0Z"
+                                                                  transform="translate(1559.985 26.999)" />
+                                                            <g class="b" transform="translate(1578 30)">
+                                                                <circle class="c" cx="4.5" cy="4.5" r="4.5" />
+                                                                <circle class="d" cx="4.5" cy="4.5" r="4" />
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__header m--align-center">
+                                                    <span class="m-dropdown__header-title">9 New</span>
+                                                    <span class="m-dropdown__header-subtitle">User Notifications</span>
+                                                </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand"
+                                                            role="tablist">
+                                                            <li class="nav-item m-tabs__item">
+                                                                <a class="nav-link m-tabs__link active" data-toggle="tab"
+                                                                   href="#topbar_notifications_notifications" role="tab">
+                                                                    Alerts
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item m-tabs__item">
+                                                                <a class="nav-link m-tabs__link" data-toggle="tab"
+                                                                   href="#topbar_notifications_events" role="tab">Events</a>
+                                                            </li>
+                                                            <li class="nav-item m-tabs__item">
+                                                                <a class="nav-link m-tabs__link" data-toggle="tab"
+                                                                   href="#topbar_notifications_logs" role="tab">Logs</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane active" id="topbar_notifications_notifications"
+                                                                 role="tabpanel">
+                                                                <div class="m-scrollable" data-scrollable="true"
+                                                                     data-height="250" data-mobile-height="200">
+                                                                    <div class="m-list-timeline m-list-timeline--skin-light">
+                                                                        <div class="m-list-timeline__items">
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge -m-list-timeline__badge--state-success"></span>
+                                                                                <span class="m-list-timeline__text">
+                                                                                    12
+                                                                                    new users registered
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    Just
+                                                                                    now
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">
+                                                                                    System
+                                                                                    shutdown <span class="m-badge m-badge--success m-badge--wide">pending</span>
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    14
+                                                                                    mins
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">
+                                                                                    New
+                                                                                    invoice received
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    20
+                                                                                    mins
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">
+                                                                                    DB
+                                                                                    overloaded 80% <span class="m-badge m-badge--info m-badge--wide">settled</span>
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    1
+                                                                                    hr
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">
+                                                                                    System
+                                                                                    error - <a href="#"
+                                                                                               class="m-link">Check</a>
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    2
+                                                                                    hrs
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item m-list-timeline__item--read">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span href="" class="m-list-timeline__text">
+                                                                                    New
+                                                                                    order received <span class="m-badge m-badge--danger m-badge--wide">urgent</span>
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    7
+                                                                                    hrs
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item m-list-timeline__item--read">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">
+                                                                                    Production
+                                                                                    server down
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    3
+                                                                                    hrs
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge"></span>
+                                                                                <span class="m-list-timeline__text">
+                                                                                    Production
+                                                                                    server up
+                                                                                </span>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    5
+                                                                                    hrs
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="topbar_notifications_events"
+                                                                 role="tabpanel">
+                                                                <div class="m-scrollable" data-scrollable="true"
+                                                                     data-height="250" data-mobile-height="200">
+                                                                    <div class="m-list-timeline m-list-timeline--skin-light">
+                                                                        <div class="m-list-timeline__items">
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
+                                                                                <a href="" class="m-list-timeline__text">
+                                                                                    New
+                                                                                    order received
+                                                                                </a>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    Just
+                                                                                    now
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-danger"></span>
+                                                                                <a href="" class="m-list-timeline__text">
+                                                                                    New
+                                                                                    invoice received
+                                                                                </a>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    20
+                                                                                    mins
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
+                                                                                <a href=""
+                                                                                   class="m-list-timeline__text">
+                                                                                    Production
+                                                                                    server up
+                                                                                </a>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    5
+                                                                                    hrs
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
+                                                                                <a href="" class="m-list-timeline__text">
+                                                                                    New
+                                                                                    order received
+                                                                                </a>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    7
+                                                                                    hrs
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
+                                                                                <a href="" class="m-list-timeline__text">
+                                                                                    System
+                                                                                    shutdown
+                                                                                </a>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    11
+                                                                                    mins
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="m-list-timeline__item">
+                                                                                <span class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
+                                                                                <a href=""
+                                                                                   class="m-list-timeline__text">
+                                                                                    Production
+                                                                                    server down
+                                                                                </a>
+                                                                                <span class="m-list-timeline__time">
+                                                                                    3
+                                                                                    hrs
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="topbar_notifications_logs"
+                                                                 role="tabpanel">
+                                                                <div class="m-stack m-stack--ver m-stack--general"
+                                                                     style="min-height: 180px;">
+                                                                    <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+                                                                        <span class="">
+                                                                            All caught up!<br>No new
+                                                                            logs.
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="m-nav__item m-topbar__user-profile  m-dropdown m-dropdown--medium m-dropdown--arrow  m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
+                                        m-dropdown-toggle="click">
+                                        <a href="#" class="m-nav__link m-dropdown__toggle d-flex align-items-center">
+                                            <span class="m-topbar__userpic">
+                                                <img src="assets/app/media/img/users/user4.jpg"
+                                                     class="m--img-rounded m--marginless m--img-centered header__username__img"
+                                                     alt="" />
+                                            </span>
+                                            <span class="m-nav__link-icon m-topbar__usericon  m--hide">
+                                                <span class="m-nav__link-icon-wrapper"><i class="flaticon-user-ok"></i></span>
+                                            </span>
+                                            <span class="header__username">Mark Andre</span>
+                                            <i class="fas fa-chevron-down header__username__down"></i>
+                                            <span class="m-topbar__username m--hide">Nick</span>
+                                        </a>
+                                        <div class="m-dropdown__wrapper">
+                                            <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                            <div class="m-dropdown__inner">
+                                                <div class="m-dropdown__header m--align-center">
+                                                    <div class="m-card-user m-card-user--skin-light">
+                                                        <div class="m-card-user__pic">
+                                                            <img src="assets/app/media/img/users/user4.jpg"
+                                                                 class="m--img-rounded m--marginless" alt="" />
+                                                        </div>
+                                                        <div class="m-card-user__details">
+                                                            <span class="m-card-user__name m--font-weight-500">
+                                                                Mark
+                                                                Andre
+                                                            </span>
+                                                            <a href=""
+                                                               class="m-card-user__email m--font-weight-300 m-link">mark.andre@gmail.com</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="m-dropdown__body">
+                                                    <div class="m-dropdown__content">
+                                                        <ul class="m-nav m-nav--skin-light">
+                                                            <li class="m-nav__section m--hide">
+                                                                <span class="m-nav__section-text">Section</span>
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="profile.html" class="m-nav__link">
+                                                                    <i class="m-nav__link-icon fa fa-user"></i>
+                                                                    <span class="m-nav__link-title">
+                                                                        <span class="m-nav__link-wrap">
+                                                                            <span class="m-nav__link-text">
+                                                                                My
+                                                                                Profile
+                                                                            </span>
+                                                                            <span class="m-nav__link-badge">
+                                                                                <span class="m-badge m-badge--success">2</span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+
+                                                            <li class="m-nav__separator m-nav__separator--fit">
+                                                            </li>
+                                                            <li class="m-nav__item">
+                                                                <a href="snippets/pages/user/login-1.html"
+                                                                   class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Logout</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- END: Topbar -->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- END: Header -->
+        <!-- BEGIN: Left Aside -->
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+
+            <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
+                <i class="la la-close"></i>
+            </button>
+            <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+
+                <!-- BEGIN: Aside Menu -->
+                <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
+                     m-menu-vertical="1" m-menu-scrollable="0" m-menu-dropdown-timeout="500">
+                    <ul class="m-menu__nav ">
+                           <li class="m-menu__item" aria-haspopup="true" m-menu-link-redirect="1">
+                                        <a href="#" class="m-menu__link ">
+                                             <span class="m-menu__link-text pl-5">Task</span>
+                                        </a>
+                           </li>  
+                    </ul>
+                </div>
+            </div>
+
+            <!-- END: Aside Menu -->
+
+            <div class="m-grid__item m-grid__item--fluid m-wrapper">
+                <div class="m-content">
+
+                    @{await Html.RenderPartialAsync("_msg", null);}
+                    <div id="msg"> </div>
+                    <!-- END: Left Aside -->
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <!-- begin::Scroll Top -->
+        <div id="m_scroll_top" class="m-scroll-top">
+            <i class="la la-arrow-up"></i>
+        </div>
+
+        <div class="modal fade" id="PopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+
+
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body">
+                        @{await Html.RenderPartialAsync("_msg", null);}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Confirm2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Warning !</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are You Sure you want to delete ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Warning !</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are You Sure ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*modal  Deactivate*@
+        <div class="modal fade" id="Deactivate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Warning !</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are You sure You want to Change Activation Status For This Property ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end::Scroll Top -->
+    <!--begin::Global Theme Bundle -->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/nprogress-master/nprogress.js"></script>
+    <!-- end::Scroll Top -->
+    <script src="~/NewLayout/js/vendors.bundle.js"></script>
+    <script src="~/NewLayout/js/scripts.bundle.js"></script>
+    <script src="~/NewLayout/js/fullcalendar.bundle.js"></script>
+    <script src="~/NewLayout/js/datatables.bundle.js"></script>
+    <script src="~/NewLayout/js/dashboard.js"></script>
+    <script src="~/NewLayout/js/my-script.js"></script>
+
+    <script>
+        $(".date-picker").datepicker({ format: "dd/mm/yyyy", endDate: "+0d", autoclose: true });
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+    <script>
+
+         function DisplayMessage(msg) {
+            var msgClass = "alert alert-info";
+            if (msg.indexOf("s:") == 0) {
+                msg = msg.substring(2);
+                msgClass = "alert alert-success";
+            }
+            else if (msg.indexOf("e:") == 0) {
+                msg = msg.substring(2);
+                msgClass = "alert alert-danger";
+            }
+            else if (msg.indexOf("i:") == 0) {
+                msg = msg.substring(2);
+                msgClass = "alert alert-info";
+            }
+            else if (msg.indexOf("w:") == 0) {
+                msg = msg.substring(2);
+                msgClass = "alert alert-warning";
+            }
+            $(".MSG").html('<div class="' + msgClass + '">' +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+               msg + '</div>');
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        $(".ajaxForm").ajaxForm({
+            success: function (json) {
+                if (json.status == 1) {
+
+                    var tname = $('.ajaxForm').attr("tname");
+                    var fname = $('.ajaxForm').attr("fname");
+
+                    if (tname != null) {
+                        RefreshData(tname);
+                    }
+                    if (fname != null) {
+                        eval(fname);
+                    }
+
+                    if (!$("#tblItems").hasClass("autohide")) {
+                        $(".ajaxForm").resetForm();
+                        $("#tblItems tbody tr").remove();
+                        $("#tblItems").addClass("hidden").next().show();
+
+                    }
+                    else {
+                        $(".select2").val('').change();
+                    }
+                }
+                console.log(json.close);
+                if (json.msg != null)
+                    ShowMessage(json.msg);
+                if (json.redirect != null)
+                    window.location = json.redirect;
+                if (json.close == 1)
+                    $("#PopUp").modal("hide");
+                $(".ajaxForm :submit").prop("disabled", false);
+            },
+            beforeSubmit: function () {
+                $(".ajaxForm :submit").prop("disabled", true);
+            }
+        });
+
+
+            $(document).on("click", ".PopUp", function () {
+                if ($(this).attr("href") != '') {
+                    $("#PopUp").modal("show");
+                    $("#PopUp .modal-body").html('<h3 class="text-center text-primary"><i class="fas fa-circle-notch fa-spin fa-3x fa-fw"></i></h3>');
+                    $("#PopUp .modal-body").load($(this).attr("href"), function () {
+                        setTimeout(function () { $("#PopUp [autofocus]").focus().select(); }, 500);
+                    });
+                    $("#PopUp .modal-title").text($(this).attr("title"));
+                    return false;
+                }
+        });
+
+        $(document).on("click", ".Deactivate", function () {
+            $("#Deactivate").modal("show");
+            $("#Deactivate .btn-danger").attr("href", $(this).attr("href"));
+            $("#Deactivate .btn-danger").attr("tname", $(this).attr("tname"));
+            return false;
+        });
+
+
+        $("#Deactivate .btn-danger").click(function () {
+            var tname = $(this).attr("tname");
+            var fname = $('.ajaxForm').attr("fname");
+            var url = $(this).attr("href");
+            $.ajax({
+                url: url,
+                success: function (json) {
+                    if (json.status == 1) {
+                        if (tname != null) {
+                            RefreshData(tname);
+                        }
+                        if (fname != null) {
+                            eval(fname);
+                        }
+                    }
+                    ShowMessage(json.msg);
+                }
+            });
+            $("#Deactivate").modal("hide");
+            return false;
+        });
+
+
+        $(document).on("click", ".Confirm", function () {
+            $("#Confirm").modal("show");
+            $("#Confirm .btn-danger").attr("href", $(this).attr("href"));
+            $("#Confirm .btn-danger").attr("tname", $(this).attr("tname"));
+            return false;
+        });
+
+
+        $("#Confirm .btn-danger").click(function () {
+            var tname = $(this).attr("tname");
+            var fname = $('.ajaxForm').attr("fname");
+            var url = $(this).attr("href");
+            $.ajax({
+                url: url,
+                success: function (json) {
+                    if (json.status == 1) {
+                        if (tname != null) {
+                            RefreshData(tname);
+                        }
+                        if (fname != null) {
+                            eval(fname);
+                        }
+                    }
+                    ShowMessage(json.msg);
+                }
+            });
+            $("#Confirm").modal("hide");
+            return false;
+        });
+
+        $(document).on("click", ".Confirm2", function () {
+            $("#Confirm2").modal("show");
+            $("#Confirm2 .btn-danger").attr("href", $(this).attr("href"));
+            $("#Confirm2 .btn-danger").attr("tname", $(this).attr("tname"));
+            return false;
+        });
+
+
+        $("#Confirm2 .btn-danger").click(function () {
+            var tname = $(this).attr("tname");
+            var fname = $('.ajaxForm').attr("fname");
+            var url = $(this).attr("href");
+            $.ajax({
+                url: url,
+                success: function (json) {
+                    if (json.status == 1) {
+                        if (tname != null) {
+                            RefreshData(tname);
+                        }
+                        if (fname != null) {
+                            eval(fname);
+                        }
+                    }
+                    ShowMessage(json.msg);
+                }
+            });
+            $("#Confirm2").modal("hide");
+            return false;
+        });
+
+        function RefreshData(tn) {
+            var xtable = $("#"+tn).dataTable();
+            var info = $("#" +tn).DataTable().page.info();
+            xtable.fnDraw();
+            xtable.fnPageChange(info.page);
+        }
+
+
+        $(document).ajaxStart(function () {
+            $(".wait").text("Wait...");
+          //  NProgress.start();
+        });
+        $(document).ajaxStop(function () {
+            $(".wait").text("");
+          //  NProgress.done();
+        });
+        $(document).ajaxError(function () {
+            $(".wait").text("");
+          //  NProgress.done();
+            $(".ajaxForm :submit").prop("disabled", false);
+        });
+
+
+       toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        function ShowMessage(msg) {
+            var cls = "info";
+            if (msg.indexOf("s:") == 0) { cls = "success"; msg = msg.substring(2); }
+            if (msg.indexOf("w:") == 0) { cls = "warning"; msg = msg.substring(2); }
+            if (msg.indexOf("e:") == 0) { cls = "error"; msg = msg.substring(2); }
+            if (msg.indexOf("i:") == 0) { cls = "info"; msg = msg.substring(2); }
+            toastr[cls](msg, "@ViewBag.Title");
+           // $(".msg").html("<div class='alert alert-" + cls + "'>" + msg + "</div>");
+        }
+
+        function PageLoadActions() {
+
+            $(".date").datepicker({ format: "dd/mm/yyyy", endDate: "+0d", autoclose: true });
+            $(".input-daterange").datepicker({ format: "dd/mm/yyyy", endDate: "+0d", autoclose: true });
+            $(".ajaxForm").ajaxForm({
+                success: function (json) {
+                    if (json.status == 1) {
+
+                        var tname = $('.ajaxForm').attr("tname");
+                        var fname = $('.ajaxForm').attr("fname");
+
+                        if (tname != null) {
+                            RefreshData(tname);
+                        }
+                        if (fname != null) {
+                            eval(fname);
+                        }
+
+                        if (!$("#tblItems").hasClass("autohide")) {
+                            $(".ajaxForm").resetForm();
+                            $("#tblItems tbody tr").remove();
+                            $("#tblItems").addClass("hidden").next().show();
+
+                        }
+                        else {
+                            $(".select2").val('').change();
+                        }
+                    }
+                    console.log(json.close);
+                    if (json.msg != null)
+                        ShowMessage(json.msg);
+                    if (json.redirect != null)
+                        window.location = json.redirect;
+                    if (json.close == 1)
+                        $("#PopUp").modal("hide");
+                    $(".ajaxForm :submit").prop("disabled", false);
+                },
+                beforeSubmit: function () {
+                    $(".ajaxForm :submit").prop("disabled", true);
+                }
+            });
+        }
+    </script>
+
+    @RenderSection("Scripts", false)
+</body>
+
+</html>

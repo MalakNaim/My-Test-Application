@@ -1,0 +1,10 @@
+<svg id="analytics-24px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="Rectangle_2194" data-name="Rectangle 2194" width="24" height="24" fill="none"/>
+  <g id="Group_87807" data-name="Group 87807">
+    <path id="Path_4601" data-name="Path 4601" d="M19,3H5A2.006,2.006,0,0,0,3,5V19a2.006,2.006,0,0,0,2,2H19a2.006,2.006,0,0,0,2-2V5A2.006,2.006,0,0,0,19,3Zm0,16H5V5H19Z" fill="#0c2869"/>
+    <rect id="Rectangle_2195" data-name="Rectangle 2195" width="2" height="5" transform="translate(7 12)" fill="#0c2869"/>
+    <rect id="Rectangle_2196" data-name="Rectangle 2196" width="2" height="10" transform="translate(15 7)" fill="#0c2869"/>
+    <rect id="Rectangle_2197" data-name="Rectangle 2197" width="2" height="3" transform="translate(11 14)" fill="#0c2869"/>
+    <rect id="Rectangle_2198" data-name="Rectangle 2198" width="2" height="2" transform="translate(11 10)" fill="#0c2869"/>
+  </g>
+</svg>

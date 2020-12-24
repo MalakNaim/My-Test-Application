@@ -1,0 +1,9 @@
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\bin\Debug\netstandard2.0\TaskApp.Data.deps.json
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\bin\Debug\netstandard2.0\TaskApp.Data.dll
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\obj\Debug\netstandard2.0\TaskApp.Data.AssemblyInfoInputs.cache
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\obj\Debug\netstandard2.0\TaskApp.Data.AssemblyInfo.cs
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\obj\Debug\netstandard2.0\TaskApp.Data.csproj.CoreCompileInputs.cache
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\bin\Debug\netstandard2.0\TaskApp.Data.pdb
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\obj\Debug\netstandard2.0\TaskApp.Data.dll
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\obj\Debug\netstandard2.0\TaskApp.Data.pdb
+D:\githup\My-Test-Application\TaskApp\TaskApp.Data\obj\Debug\netstandard2.0\TaskApp.Data.csprojAssemblyReference.cache

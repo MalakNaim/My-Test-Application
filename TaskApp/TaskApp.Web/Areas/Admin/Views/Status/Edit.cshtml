@@ -1,0 +1,55 @@
+﻿@model TaskApp.Web.DTOs.StatusDTO.EditStatusDTO
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    string z = System.Globalization.CultureInfo.CurrentCulture.Name;
+
+
+    if (Context.Request.Headers["X-Requested-With"].Equals("XMLHttpRequest"))
+    {
+        ViewData["Title"] = "Update Status  ";
+        Layout = null;
+    }
+    else
+    {
+        ViewData["Title"] = "Update Status  ";
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+
+
+}
+
+<form asp-action="Edit" class="ajaxForm" tname="StatusTable" enctype="multipart/form-data">
+
+    <input type="hidden" asp-for="ID" />
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="form-group" style="float:right;">
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+</form>
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    PageLoadActions();
+</script>
+
+
+

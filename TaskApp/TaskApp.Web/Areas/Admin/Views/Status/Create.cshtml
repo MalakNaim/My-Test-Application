@@ -1,0 +1,55 @@
+﻿@model TaskApp.Web.DTOs.StatusDTO.CreateStatusDTO 
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@{
+    string z = System.Globalization.CultureInfo.CurrentCulture.Name;
+
+    if (Context.Request.Headers["X-Requested-With"].Equals("XMLHttpRequest"))
+    {
+        ViewData["Title"] = "Add Status  ";
+        Layout = "~/Areas/Admin/Views/Shared/_EmptyLayout.cshtml";
+
+    }
+    else
+    {
+        ViewData["Title"] = "Add Status  ";
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+}
+
+
+
+<form asp-action="Create" tname="StatusTable" method="post" class="ajaxForm">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group" style="float:right;">
+        <button type="submit" class="btn btn-primary text-white">Create <i class="fa fa-arrow-right text-white"></i></button>
+    </div>
+
+
+</form>
+
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    PageLoadActions();
+</script>
+
+
+
